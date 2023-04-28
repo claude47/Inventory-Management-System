@@ -5,11 +5,14 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-9">
+    <div class="d-flex justify-content-end mb-2">
+        <a href="{{ url('/admin/users') }}" class="btn btn-primary btn-sm mr-2" title="Show Users">Show Users</a>
+      </div>
       <div class="card">
         <div class="card-header">
           <div class="d-flex justify-content-between align-items-center">
             <h2>Product List</h2>
-            <a href="{{ url('/admin/users') }}" class="btn btn-primary btn-sm" title="Show Users">Show Users</a>
+            <!-- <a href="{{ url('/admin/users') }}" class="btn btn-primary btn-sm" title="Show Users">Show Users</a> -->
           </div>
         </div>
         <div class="card-body">

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class CheckBanned
 {
     /**
      * Handle an incoming request.
@@ -15,26 +15,19 @@ class AdminMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-
-
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()) {
 
-            if(Auth::user()->role == '1') {
-                return $next($request);
-                
-            } else {
-                return redirect('/home')->with('message', 'Access denied!');
-            }
+        if (auth()->check() && (auth()->user()->status == 0)) {
+                Auth::logout();
 
-        } else {
-            return redirect('/login')->with('message', 'Login to access the website!');
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
 
-        }
-
-
-        return $next($request);
+              return redirect()->route('login')->with('error', 'Your Account is suspended!');
+        
     }
-    
+    return $next($request);
+
+    }
 }

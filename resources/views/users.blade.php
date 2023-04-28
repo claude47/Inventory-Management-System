@@ -13,7 +13,8 @@
                 <th class="py-3 px-6 text-left">Name</th>
                 <th class="py-3 px-6 text-left">Email</th>
                 <th class="py-3 px-6 text-left">Last Seen</th>
-                <th class="py-3 px-6 text-center">Status</th>
+                <th class="py-3 px-6 text-center">Active Status</th>
+                <th class="py-3 px-6 text-center">Account Status</th>
                 </tr>
             </thead>
             <tbody class="text-gray font-light">
@@ -27,6 +28,21 @@
                         <span class="bg-{{ $user->last_seen >= now()->subMinutes(2) ? 'green' : 'red' }}--500 text-white py-1 px-3 rounded-full text-lg">
                         <td class="py-3 px-6 text-center"> {{ $user->last_seen >= now()->subMinutes(2) ? 'Online' : 'Offline' }} </td>
                         </span>
+                        
+                        <td class="py-3 px-6 text-center">
+                            @if($user->status == 1)
+                            <a href="{{ route('users.status.update', ['user_id' => $user->id, 'status_code' => 0])}}" 
+                            class="btn btn-danger m-2">
+                                <i class="fa fa-ban"></i>
+                            </a>
+                            @else
+                            <a href="{{ route('users.status.update', ['user_id' => $user->id, 'status_code' => 1])}}" 
+                            class="btn btn-success m-2">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            @endif
+                        </td>
+                        
                         
 
                     </tr>
